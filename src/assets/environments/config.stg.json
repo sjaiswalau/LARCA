@@ -1,0 +1,6 @@
+{
+  "apiServer": "https://stg-clara-api:59009",
+  "production": "false",
+  "environmentName": "Staging",
+  "version": "0.0.1"
+}

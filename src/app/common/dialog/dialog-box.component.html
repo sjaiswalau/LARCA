@@ -1,0 +1,50 @@
+<!-- dialog-box.component.html -->
+<h1 mat-dialog-title><strong>{{action}}</strong></h1>
+<div mat-dialog-content>
+  <div *ngIf="action != 'Delete'; else elseTemplate"  >
+    DateOn: <mat-form-field>
+      <input matInput [matDatepicker]="dateOn">
+      <mat-datepicker-toggle matSuffix [for]="dateOn"></mat-datepicker-toggle>
+      <mat-datepicker #dateOn></mat-datepicker>
+    </mat-form-field>
+    <br/>
+    DateOff: <mat-form-field>
+      <input matInput [matDatepicker]="dateOff">
+      <mat-datepicker-toggle matSuffix [for]="dateOff"></mat-datepicker-toggle>
+      <mat-datepicker #dateOff></mat-datepicker>
+    </mat-form-field>
+    <br/>
+    Service Code 1:  <mat-form-field><input name="serviceCode1" matInput></mat-form-field>
+    Case Item 1: <mat-form-field><input name="caseItem1" matInput ></mat-form-field>
+    <br/>
+    Service Code 2:  <mat-form-field><input name="serviceCode2" matInput></mat-form-field>
+    Case Item 2: <mat-form-field><input name="caseItem2" matInput ></mat-form-field>
+    <br/>
+    Service Code 3:  <mat-form-field><input name="serviceCode3" matInput></mat-form-field>
+    Case Item 3: <mat-form-field><input name="caseItem3" matInput ></mat-form-field>
+    <br/>
+    Service Code 4:  <mat-form-field><input name="serviceCode4" matInput></mat-form-field>
+    Case Item 4: <mat-form-field><input name="caseItem4" matInput ></mat-form-field>
+    <br/>
+    Service Code 5:  <mat-form-field><input name="serviceCode5" matInput></mat-form-field>
+    Case Item 6: <mat-form-field><input name="caseItem5" matInput ></mat-form-field>
+    <br/>
+    Service Code 6:  <mat-form-field><input name="serviceCode6" matInput></mat-form-field>
+    Case Item 6: <mat-form-field><input name="caseItem6" matInput ></mat-form-field>
+    <br/>
+    Illness/Item Codes: <mat-form-field class="full-width">
+      <textarea matInput name="illnessItemCodes"
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"></textarea>
+    </mat-form-field>
+  </div>
+
+  <ng-template #elseTemplate>
+    Sure to delete <b>{{local_data.name}}</b>?
+  </ng-template>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="doAction()" mat-flat-button color="warn">{{action}}</button>
+  <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
+</div>
+

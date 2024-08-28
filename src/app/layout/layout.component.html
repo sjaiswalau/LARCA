@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand mr-auto mr-lg-0" href="/">Clara Web Portal</a>
+  <button class="navbar-toggler p-0 border-0" type="button" data-toggle="nav-menu">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+ <div class="navbar-collapse" id="nav-menu">
+    <ul class="navbar-nav mr-auto">
+      <li ngbDropdown class="nav-item dropdown">
+        <a ngbDropdownToggle class="nav-link dropdown-toggle" id="drpdwm">
+          Case Payment
+        </a>
+        <div ngbDropdownMenu aria-labelledby="drpdwm" class="dropdown-menu">
+          <a ngbDropdownItem class="dropdown-item" href="/app/casepaydefinition">Case Pay Definition</a>
+          <a ngbDropdownItem class="dropdown-item" href="/app/casepaycontrol">Case Pay Control</a>
+        </div>
+      </li>
+      <li ngbDropdown class="nav-item dropdown">
+        <a ngbDropdownToggle class="nav-link dropdown-toggle" id="drpdwm">
+          Mapping
+        </a>
+        <div ngbDropdownMenu aria-labelledby="drpdwm" class="dropdown-menu">
+          <a ngbDropdownItem class="dropdown-item" href="/app/medicalmapping">Medical</a>
+          <a ngbDropdownItem class="dropdown-item" href="/app/prosthesismapping">Prosthesis</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div>
+  <router-outlet></router-outlet>
+</div>

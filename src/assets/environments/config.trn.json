@@ -1,0 +1,7 @@
+{
+  "apiServer": "https://trn-clara-api:59009",
+  "production": "false",
+  "environmentName": "Training",
+  "version": "0.0.1"
+}
+

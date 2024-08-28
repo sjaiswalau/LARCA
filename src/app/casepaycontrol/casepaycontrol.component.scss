@@ -1,0 +1,71 @@
+.heading{
+  margin: 10px 10px 20px 10px;
+}
+
+.button{
+  margin: 20px 5px 0 10px;
+}
+
+.provider{
+  margin: 10px 0 0 10px;
+}
+
+.paginator{
+  margin-top: -30px;
+  margin-bottom: 10px;
+}
+
+.main-div{
+
+  overflow: hidden;
+}
+.bottom-panel{
+  margin-top: -10px;
+}
+
+.action-column{
+  vertical-align: top;
+  width: 10px;
+}
+
+.sub-heading{
+  font-weight: bold;
+  margin-left: 5px;
+  margin-bottom: 10px;
+  margin-top: -10px;
+}
+
+mat-form-field {
+  margin-left: 5px;
+  margin-top: -10px;
+  width: 100%;
+}
+
+.header-row {
+  margin: 20px;
+}
+
+
+.mat-table{
+  width: 100%;
+  border-style: none;
+  margin-top: -50px;
+  /*font-size: 12px;*/
+}
+
+.table-header{
+  border-style: none;
+}
+
+.redClass {
+  background-color: red
+}
+
+.mat-input-invalid .mat-input-placeholder {
+  color: red;
+}
+
+.mat-header-cell{
+  font-size: 16px;
+  font-weight: bold;
+}

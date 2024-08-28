@@ -1,0 +1,6 @@
+{
+  "apiServer": "http://localhost:59009",
+  "production": "false",
+  "environmentName": "Local",
+  "version": "0.0.1"
+}

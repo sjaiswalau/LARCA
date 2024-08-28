@@ -1,0 +1,6 @@
+{
+  "apiServer": "https://prd-clara-api:59009",
+  "production": "false",
+  "environmentName": "Prod",
+  "version": "0.0.1"
+}

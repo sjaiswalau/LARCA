@@ -1,0 +1,6 @@
+{
+  "apiServer": "https://st2-clara-aws-api:59009",
+  "production": "false",
+  "environmentName": "ATP St2",
+  "version": "0.0.1"
+}
