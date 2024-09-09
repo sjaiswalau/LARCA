@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ConfigService } from './config.service';
+import { FakeBackendInterceptor } from '../shared/api/fake-backend';
 
 export let AppInjector: Injector;
 
@@ -40,12 +41,13 @@ export class CoreModule {
   }
 
 
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<any> {
     return {
       ngModule: CoreModule,
       providers: [
         APP_PROVIDERS,
-        ConfigService
+        ConfigService,
+        FakeBackendInterceptor
       ]
     };
   }

@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { FormsModule } from '@angular/forms';
+import { fakeBackendProvider } from './shared/api/fake-backend';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     CoreModule.forRoot()
   ],
+  providers:[fakeBackendProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

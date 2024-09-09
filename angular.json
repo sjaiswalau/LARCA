@@ -45,7 +45,6 @@
               "optimization": false,
               "outputHashing": "bundles",
               "sourceMap": true,
-              "extractCss": true,
               "namedChunks": true,
               "aot": true,
               "extractLicenses": false,
@@ -74,7 +73,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": true,
-              "extractCss": true,
               "namedChunks": true,
               "aot": true,
               "extractLicenses": false,
@@ -103,7 +101,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": true,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -132,7 +129,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -161,7 +157,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -185,30 +180,30 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "wwb2App:build"
+            "buildTarget": "wwb2App:build"
           },
           "configurations": {
             "dev": {
-              "browserTarget": "wwb2App:build:dev"
+              "buildTarget": "wwb2App:build:dev"
             },
             "local": {
-              "browserTarget": "wwb2App:build:local"
+              "buildTarget": "wwb2App:build:local"
             },
             "prod": {
-              "browserTarget": "wwb2App:build:prod"
+              "buildTarget": "wwb2App:build:prod"
             },
             "sit": {
-              "browserTarget": "wwb2App:build:sit"
+              "buildTarget": "wwb2App:build:sit"
             },
             "stg": {
-              "browserTarget": "wwb2App:build:stg"
+              "buildTarget": "wwb2App:build:stg"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "wwb2App:build"
+            "buildTarget": "wwb2App:build"
           }
         },
         "test": {
@@ -254,6 +249,5 @@
           }
         }
       }
-    }},
-  "defaultProject": "wwb2App"
+    }}
 }

@@ -15,7 +15,8 @@ export default class MedicalMappingService {
   public MEDICALMAPPING_API: string;
   constructor(private http: HttpClient, private configService: ConfigService) {
     this.API = this.configService.config.apiServer;
-    this.MEDICALMAPPING_API = `${this.API}/MedicalMapping`;
+    // this.MEDICALMAPPING_API = `${this.API}/MedicalMapping`;
+    this.MEDICALMAPPING_API = `http://localhost:8080/MedicalMapping`;
   }
 
   searchMedicalMappingByDescription(description: string) {

@@ -155,7 +155,8 @@ export class MedicalMappingComponent implements OnInit {
           }
           else
           {
-              this.dataSource = new MatTableDataSource(result['Response']);
+            // result['Response'] = (result['Response'] as any[]).filter(x => x.Description.includes(this.description))
+            this.dataSource = new MatTableDataSource(result['Response'].filter(x => x.Description.includes(this.description)));
               this.dataSource.paginator = this.paginator;
 
           }

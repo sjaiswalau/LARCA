@@ -11,6 +11,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { CommonModule } from '@angular/common';
     MatNativeDateModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
+    MatSortModule,
     CommonModule
   ],
   exports: [
