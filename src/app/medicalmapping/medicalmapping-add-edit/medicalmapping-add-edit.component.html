@@ -1,0 +1,74 @@
+<div class="p-4">
+    <div class="container example-container">
+        <h1>{{ title }}</h1>
+        <form [formGroup]="medicalMappingForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="mb-3 col">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Description</mat-label>
+                        <input matInput required formControlName="Description">
+                        <mat-error *ngIf="medicalMappingForm.controls.Description.hasError('required')">Description is
+                            required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="mb-3 col">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>ItemCode</mat-label>
+                        <input matInput required formControlName="ItemCode">
+                        <mat-error *ngIf="medicalMappingForm.controls.ItemCode.hasError('required')">ItemCode is required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="mb-3 col">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Speciality</mat-label>
+                        <input matInput required formControlName="Speciality">
+                        <mat-error *ngIf="medicalMappingForm.controls.Speciality.hasError('required')">Speciality is
+                            required</mat-error>
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="mb-3 col">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Date On</mat-label>
+                        <input matInput [matDatepicker]="dateOnpicker" formControlName="DateOn" required>
+                        <mat-datepicker-toggle matSuffix [for]="dateOnpicker"></mat-datepicker-toggle>
+                        <mat-datepicker #dateOnpicker></mat-datepicker>
+                        <mat-error *ngIf="medicalMappingForm.controls.DateOn.hasError('required')">DateOn is
+                            required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="mb-3 col">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Date Off</mat-label>
+                        <input matInput [matDatepicker]="dateOffpicker" formControlName="DateOff">
+                        <mat-datepicker-toggle matSuffix [for]="dateOffpicker"></mat-datepicker-toggle>
+                        <mat-datepicker #dateOffpicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="mb-3 col">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Last Updated UserID</mat-label>
+                        <input matInput ngModel formControlName="Lst_Upd_UserID">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Action</mat-label>
+                        <input matInput formControlName="Action" ngModel />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary">
+                    Save
+                </button>
+                <a routerLink="/" class="btn btn-link">Cancel</a>
+            </div>
+        </form>
+    </div>
+    ﻿
+</div>

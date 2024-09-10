@@ -220,7 +220,8 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+            ]
           }
         },
         "lint": {
@@ -249,5 +250,9 @@
           }
         }
       }
-    }}
+    }
+  },
+  "cli": {
+    "analytics": false
+  }
 }

@@ -5,7 +5,7 @@
 .mat-column-servicecode3,
 .mat-column-servicecode4,
 .mat-column-servicecode5,
-.mat-column-servicecode6{
+.mat-column-servicecode6 {
   max-width: 64px;
   padding-right: 10px;
 }
@@ -19,20 +19,22 @@
   max-width: 100px;
   padding-right: 10px;
 }
+
 .mat-column-date {
   max-width: 100px;
   padding-right: 10px;
 }
 
-.main-div{
+.main-div {
 
-overflow: hidden;
+  overflow: hidden;
 }
-.heading{
+
+.heading {
   margin: 10px 10px 20px 10px;
 }
 
-.search-button{
+.search-button {
   margin: 20px 5px 0 10px;
 }
 
@@ -43,11 +45,11 @@ overflow: hidden;
   margin: -50px 5px 0 10px;
 }
 
-.filter{
+.filter {
   margin: 0px 5px 0 10px;
 }
 
-.action-column{
+.action-column {
   vertical-align: top;
   width: 10px;
 }
@@ -57,7 +59,9 @@ overflow: hidden;
   margin-bottom: -16px;
 }
 
-.redClass { background-color: red }
+.redClass {
+  background-color: red
+}
 
 .mat-input-invalid .mat-input-placeholder {
   color: red;
@@ -67,7 +71,7 @@ overflow: hidden;
   margin: 20px;
 }
 
-.mat-header-cell{
+.mat-header-cell {
 
   font-size: 16px;
   font-weight: bold;

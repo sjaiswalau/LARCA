@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-
-import { environment as Environment } from 'src/environments/environment';
 import { AppSettings } from 'src/environments/model';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { EMPTY, Subject } from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ConfigService {
   //public environment: AppSettings = Environment;
   public configLoaded = new Subject<AppSettings>();

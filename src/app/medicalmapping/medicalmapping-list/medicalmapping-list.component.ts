@@ -1,22 +1,31 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
-import MedicalMappingService from '../shared/api/medicalmapping.service';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import MedicalMappingService from '../../shared/api/medicalmapping.service';
 import * as moment from 'moment';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MedicalMappingModel } from '../../shared/models/MedicalMapping';
+import { CommonModule } from 'src/app/common/common.module';
+import { DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { first } from 'rxjs';
 
 @Component({
-  selector: 'hcf-medicalmapping',
-  templateUrl: './medicalmapping.component.html',
-  styleUrls: ['./medicalmapping.component.scss']
+  selector: 'hcf-medicalmapping-list',
+  standalone: true,
+  imports: [CommonModule, RouterLink, DatePipe],
+  templateUrl: './medicalmapping-list.component.html',
+  styleUrls: ['./medicalmapping-list.component.scss'],
+  providers: [provideNativeDateAdapter()],
 })
 
-export class MedicalMappingComponent implements OnInit {
+export class MedicalMappingListComponent implements OnInit {
   public filterForm: FormGroup;
   public addRowForm: FormGroup;
   medicalMappingForm: FormGroup;
   description = '';
-  error  = '';
+  error = '';
   showDescription: Boolean = false;
   showError: Boolean = false;
   showMessage: Boolean = false;
@@ -25,13 +34,12 @@ export class MedicalMappingComponent implements OnInit {
   columns: string[];
   displayedColumns: string[];
 
-  @ViewChild(MatTable, {static: true}) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  dataSource: MatTableDataSource<any>;
+  dataSource: MatTableDataSource<MedicalMappingModel>;
 
-  constructor(private formBuilder: FormBuilder,
-              private medicalMappingService: MedicalMappingService) {
-    this.displayedColumns = ["Action", "Description", "ItemCode", "Speciality", "DateOn", "DateOff", "Lst_Upd_UserId", "Lst_Upd_Timestamp"];
+  constructor(
+    private medicalMappingService: MedicalMappingService) {
+    this.displayedColumns = ["Action", "Description", "ItemCode", "Speciality", "DateOn", "DateOff", "Lst_Upd_UserId", "Lst_Upd_Timestamp","opration"];
   }
 
   ngOnInit(): void {
@@ -61,8 +69,8 @@ export class MedicalMappingComponent implements OnInit {
       return;
     }
 
-    this.medicalMappingService.updateMedicalMapping(this.dataSource).subscribe(data => {
-      if(!this.description)
+    this.medicalMappingService.updateMedicalMapping(1,this.dataSource).subscribe(data => {
+      if (!this.description)
         this.getAllMedicalMappings();
       else
         this.searchMappingByDescription();
@@ -80,15 +88,16 @@ export class MedicalMappingComponent implements OnInit {
   }
 
   pushNewRow() {
-    const newMedicalMapping = {
-      Action : '',
-      Description : '',
-      ItemCode :  '',
-      Speciality : 'M',
-      DateOn :  '',
-      DateOff :  '',
-      Lst_Upd_UserId : '',
-      Lst_Upd_Timestamp : ''
+    const newMedicalMapping: MedicalMappingModel = {
+      id: 0,
+      Action: '',
+      Description: '',
+      ItemCode: '',
+      Speciality: 'M',
+      DateOn: '',
+      DateOff: '',
+      Lst_Upd_UserID: '',
+      Lst_Upd_TimeStamp: ''
     };
     if (this.dataSource == null) {
       this.dataSource = new MatTableDataSource();
@@ -99,44 +108,49 @@ export class MedicalMappingComponent implements OnInit {
     this.dataSource.data = data;
     this.paginator.pageIndex = this.paginator.length + 1;
     this.showError = false;
-   }
+  }
 
 
-  getAllMedicalMappings(){
+  getAllMedicalMappings() {
 
-      this.medicalMappingService.getAllMedicalMappings().subscribe(result => {
-        if (result) {
-          if(result["Response"].length === 0)
-          {
-              this.pushNewRow();
-          }
-          else
-          {
-              this.dataSource = new MatTableDataSource(result['Response']);
-              this.dataSource.paginator = this.paginator;
-
-          }
-        } else {
-          {
-            this.showError = true;
-            this.isLoadingResults = false;
-            this.dataSource = new MatTableDataSource();
-          }
+    this.medicalMappingService.getAllMedicalMappings().subscribe(result => {
+      if (result) {
+        // if (result["Response"].length === 0) {
+        if (result.length === 0) {
+          this.pushNewRow();
         }
-      }, error => {
-        if (error.error.Message != null) {
-            this.error = error.error.Message;
-        } else if ( error.message) {
-           this.error = error.message;
+        else {
+          // this.dataSource = new MatTableDataSource(result['Response']);
+          this.dataSource = new MatTableDataSource(result);
+          this.dataSource.paginator = this.paginator;
+
         }
-        this.resetPageDataSource();
-        this.showError = true;
-      });
+      } else {
+        {
+          this.showError = true;
+          this.isLoadingResults = false;
+          this.dataSource = new MatTableDataSource();
+        }
+      }
+    }, error => {
+      if (error.error.Message != null) {
+        this.error = error.error.Message;
+      } else if (error.message) {
+        this.error = error.message;
+      }
+      this.resetPageDataSource();
+      this.showError = true;
+    });
+  }
+  deletemedical(id: number) {
+    this.medicalMappingService.delete(id)
+      .pipe(first())
+      .subscribe(() => this.dataSource.data = this.dataSource.data!.filter(x => x.id !== id));
   }
 
   searchMappingByDescription() {
 
-    if(!this.description)
+    if (!this.description)
       return;
 
     this.isLoadingResults = true;
@@ -147,17 +161,17 @@ export class MedicalMappingComponent implements OnInit {
     this.showError = false;
 
     if (this.description || this.description == "") {
-      this.medicalMappingService.searchMedicalMappingByDescription(this.description).subscribe(result => {
+      // this.medicalMappingService.searchMedicalMappingByDescription(this.description).subscribe(result => {
+        this.medicalMappingService.getAllMedicalMappings().subscribe(result => {
         if (result) {
-          if(result["Response"].length === 0)
-          {
-              this.pushNewRow();
+          // if (result["Response"].length === 0) {
+          if (result.length === 0) {
+            this.pushNewRow();
           }
-          else
-          {
-            // result['Response'] = (result['Response'] as any[]).filter(x => x.Description.includes(this.description))
-            this.dataSource = new MatTableDataSource(result['Response'].filter(x => x.Description.includes(this.description)));
-              this.dataSource.paginator = this.paginator;
+          else {
+            // this.dataSource = new MatTableDataSource(result['Response'].filter(x => x.Description.includes(this.description)));
+            this.dataSource = new MatTableDataSource(result.filter(x => x.Description.includes(this.description)));
+            this.dataSource.paginator = this.paginator;
 
           }
           this.isLoadingResults = false;
@@ -172,9 +186,9 @@ export class MedicalMappingComponent implements OnInit {
       }, error => {
         this.isLoadingResults = false;
         if (error.error.Message != null) {
-            this.error = error.error.Message;
-        } else if ( error.message) {
-           this.error = error.message;
+          this.error = error.error.Message;
+        } else if (error.message) {
+          this.error = error.message;
         }
         this.resetPageDataSource();
         this.showError = true;
@@ -193,9 +207,9 @@ export class MedicalMappingComponent implements OnInit {
         let dteOff = this.dataSource.data[i].DateOff;
 
         if (dteOn === null || dteOn === '') {
-            this.error = 'Please enter a valid date.';
-            return false;
-          }
+          this.error = 'Please enter a valid date.';
+          return false;
+        }
 
         if (dteOff === null || dteOff === '') {
           this.dataSource.data[i].DateOff = '31129999';
@@ -208,9 +222,9 @@ export class MedicalMappingComponent implements OnInit {
         }
 
         if (!this.isNumber(dteOn)) {
-         this.error = 'Please enter a valid date.';
-         return false;
-       }
+          this.error = 'Please enter a valid date.';
+          return false;
+        }
 
         const parsedDateOff = this.parseDate(dteOff);
         const parsedDateOn = this.parseDate(dteOn);
@@ -237,12 +251,12 @@ export class MedicalMappingComponent implements OnInit {
     return true;
   }
 
-  isNumber (str: string) {
+  isNumber(str: string) {
     const pattern = /^\d+$/;
     return pattern.test(str);
   }
 
-  parseDate (dateToParse: any) {
+  parseDate(dateToParse: any) {
     const date = moment(dateToParse, 'DD/MM/YYYY').toString();
     return new Date(date);
   }

@@ -1,0 +1,111 @@
+<div class="p-4">
+  <h3 class="heading">Medical Mapping</h3>
+  <a routerLink="../medicalmapping-add-edit" mat-stroked-button for="button">Add Medical Mapping</a>
+
+  <div class="main-div"></div>
+  <div class="filter" [formGroup]="filterForm">
+    <div class="form-row align-items-center d-flex">
+      <div class="col-sm-2 my-1">
+        <mat-form-field><input placeholder="Description" tabindex="1" type="text" formControlName="description" matInput
+            maxlength="80" [(ngModel)]='description'></mat-form-field>
+        <mat-error *ngIf="hasError('description', 'required')">Description is required</mat-error>
+      </div>
+      <div>
+        <button mat-button mat-flat-button color="primary" style="margin-top: -5px;"
+          (click)="searchMappingByDescription()" class="search-button">Filter</button>
+      </div>
+    </div>
+    <div class="alert alert-danger" *ngIf="showError">
+      {{ this.error }}
+    </div>
+    <div class="alert alert-success" *ngIf="showMessage">
+      {{ this.successMessage }}
+    </div>
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <table mat-table [dataSource]="dataSource" *ngIf="this.dataSource != null && this.dataSource.data.length" #mytable
+    class="my-table mat-elevation-z8" class="table">
+
+    <ng-container matColumnDef="Action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        <mat-form-field appearance="outline" placeholder="On"><input matInput tabindex="{{(17 * (i + 1)) + 1}}"
+            maxlength="1" [(ngModel)]="element.Action"></mat-form-field>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Description">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        <mat-form-field appearance="outline" placeholder="On"><input matInput tabindex="{{(17 * (i + 1)) + 1}}"
+            maxlength="50" [(ngModel)]="element.Description"></mat-form-field>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="ItemCode">
+      <th mat-header-cell *matHeaderCellDef> Item Code </th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        <mat-form-field appearance="outline" placeholder="On"><input disabled matInput tabindex="{{(17 * (i + 1)) + 1}}"
+            maxlength="50" [(ngModel)]="element.ItemCode"></mat-form-field>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Speciality">
+      <th mat-header-cell *matHeaderCellDef> Speciality </th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        <mat-form-field appearance="outline" placeholder="On"><input matInput disabled tabindex="{{(17 * (i + 1)) + 1}}"
+            maxlength="8" [(ngModel)]="element.Speciality"></mat-form-field>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="DateOn">
+      <th mat-header-cell *matHeaderCellDef> Date On </th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        <mat-form-field appearance="outline" placeholder="On"><input matInput tabindex="{{(17 * (i + 1)) + 1}}"
+            maxlength="8" [(ngModel)]="element.DateOn"></mat-form-field>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="DateOff">
+      <th mat-header-cell *matHeaderCellDef> DateOff </th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        <mat-form-field appearance="outline" placeholder="Off"><input matInput tabindex="{{(17 * (i + 1)) + 9}}"
+            maxlength="8" [(ngModel)]="element.DateOff"></mat-form-field>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Lst_Upd_UserId">
+      <th mat-header-cell *matHeaderCellDef> Last Updated By </th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        <mat-form-field appearance="outline" placeholder="Off"><input matInput disabled
+            tabindex="{{(17 * (i + 1)) + 9}}" maxlength="8" [(ngModel)]="element.Lst_Upd_UserID"></mat-form-field>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Lst_Upd_Timestamp">
+      <th mat-header-cell *matHeaderCellDef> Last Updated </th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        <mat-form-field appearance="outline" placeholder="Off"><input matInput disabled
+            tabindex="{{(17 * (i + 1)) + 9}}" maxlength="8" [(ngModel)]="element.Lst_Upd_TimeStamp"></mat-form-field>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="opration">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <a routerLink="../medicalmapping-add-edit/{{ row.id }}" mat-stroked-button>Edit</a>
+        <button (click)="deletemedical(row.id)" mat-stroked-button color="warn">
+          <span>Delete</span>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="header-row"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="header-row"></tr>
+  </table>
+  <div class="form-row align-items-center d-flex">
+    <div class="col-sm-6 my-1">
+      <!-- <button mat-button *ngIf="this.dataSource != null && this.dataSource.data.length" mat-flat-button color="accent"
+        class="update-button" (click)="updateRowData()">Update</button>
+      <button mat-button *ngIf="this.dataSource != null && this.dataSource.data.length" mat-flat-button color="accent"
+        class="update-button" (click)="getAllMedicalMappings()">Refresh</button> -->
+    </div>
+
+    <div class="col-sm-6 my-1">
+      <mat-paginator [showFirstLastButtons]="true" [pageSizeOptions]="[4, 8, 16, 32]" [pageSize]="4"></mat-paginator>
+    </div>
+  </div>
+  <div>
+  </div>
